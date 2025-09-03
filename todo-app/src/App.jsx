@@ -7,33 +7,59 @@ import './App.css'
 import Counter from './components/counter.jsx'
 import Button from './components/button.jsx'
 import Task from './components/Task.jsx'
+
+
+
 function App() {
 
 const[tasks, setTasks] = useState([
   {
   id: 1,
   content: "Mi primera tarea",
-  completed: false
+  completed: true
 },
 {
   id: 2,
   content: "Mi segunda tarea",
-  completed: false
+  completed: true
 },
 {
   id: 3,
   content: "Mi tercera tarea",
   completed: false
+},
+{  id: 4,
+  content: "Mi cuarta tarea",
+  completed: false
+},
+{  id: 5,
+  content: "Mi quinta tarea",
+  completed: true
 }
 
 ])
+
+
+const addTask = () =>{
+  console.log("Add Task")
+  const id = new Date().getTime();
+  const task = {
+    id: id,
+    content: prompt("Enter new task"),
+    completed: false
+  }
+  console.log("Task added")
+  setTasks(...tasks, task)
+}
+
+
 
   return (
     <>
       <div className="container center">
         <h1 className="center title">TODO App</h1>
-        <Counter/>
-        <Button className={"button center"} text={"Add Task"} callback={() => {console.log("Add Task")}}/>
+        <Counter totalTask={tasks.length} completedTasks={tasks.filter(task => !task.completed).length}/>
+        <Button className={"button center"} text={"Add Task"} callback={() => {addTask}}/>
         <ul id="todo-list" className="todo-list">
           {
             tasks.map((task) =>{
